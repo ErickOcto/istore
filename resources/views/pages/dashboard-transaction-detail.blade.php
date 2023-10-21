@@ -50,7 +50,7 @@ Your Transaction Detail
                                 </div>
                               </div>
                               <div class="col-12 col-md-6">
-                                <div class="product-title">Status</div>
+                                <div class="product-title">Payment Status</div>
                                 <div class="product-subtitle text-danger">
                                   Pending
                                 </div>
@@ -120,10 +120,9 @@ Your Transaction Detail
                                       class="form-control"
                                       v-model="status"
                                     >
-                                      <option value="UNPAID">Unpaid</option>
-                                      <option value="PENDING">Pending</option>
-                                      <option value="SHIPPING">Shipping</option>
-                                      <option value="SUCCESS">Success</option>
+                                      <option value="Pending">Pending</option>
+                                      <option value="Shipping">Shipping</option>
+                                      <option value="Success">Success</option>
                                     </select>
                                   </div>
                                   <template v-if="status == 'SHIPPING'">

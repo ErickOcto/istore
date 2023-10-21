@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('insurance_price');
             $table->integer('shipping_price');
             $table->integer('total_price');
-            $table->enum('transaction_status', ['Unpaid', 'Pending', 'Shipping', 'Success', 'Failed']);
-            $table->string('resi');
+            $table->enum('transaction_status', ['Pending', 'Shipping', 'Success', 'Failed']);
+            $table->string('code');
 
             $table->softDeletes();
             $table->timestamps();

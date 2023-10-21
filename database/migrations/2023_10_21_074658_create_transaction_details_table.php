@@ -17,6 +17,10 @@ return new class extends Migration
             $table->foreignId('transaction_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->integer('price');
+            $table->enum('transaction_status', ['Pending', 'Shipping', 'Success', 'Failed']);
+            $table->string('resi');
+            $table->string('code');
+            $table->string('shipping_status');
 
             $table->softDeletes();
             $table->timestamps();

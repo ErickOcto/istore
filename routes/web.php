@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
@@ -40,7 +42,11 @@ Route::get('/dashboard/transaction-detail/{id}', [DashboardTransactionController
 Route::get('/dashboard/setting-store', [DashboardSettingController::class, 'store'])->name('dashboard-setting-store');
 Route::get('/dashboard/setting-account', [DashboardSettingController::class, 'account'])->name('dashboard-setting-account');
 
-
+//Admin Dashboard
+Route::prefix('admin')->group( function(){
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('admin-dashboard');
+    Route::resource('category', AdminCategoryController::class);
+});
 
 
 // Ini default laravel
