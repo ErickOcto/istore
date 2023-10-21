@@ -18,9 +18,6 @@
   </head>
 
   <body>
-    {{-- Navbar --}}
-    @include('includes.navbar')
-
     {{-- Content --}}
     @yield('content')
 
