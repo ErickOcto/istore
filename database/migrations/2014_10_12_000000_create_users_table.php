@@ -19,15 +19,15 @@ return new class extends Migration
             $table->string('password');
             $table->string('roles')->default('USER');
 
-            $table->longText('address_1');
-            $table->longText('address_2');
-            $table->integer('provinces_id');
-            $table->integer('regencies_id');
-            $table->integer('zip_code');
-            $table->string('country');
-            $table->string('phone_number');
-            $table->string('store_name');
-            $table->foreignId('category_id')->constrained();
+            $table->longText('address_1')->nullable();
+            $table->longText('address_2')->nullable();
+            $table->integer('provinces_id')->nullable();
+            $table->integer('regencies_id')->nullable();
+            $table->integer('zip_code')->nullable();
+            $table->string('country')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('store_name')->nullable();
+            $table->integer('category_id')->nullable();
             $table->boolean('store_status')->default(false);
 
             $table->softDeletes();
