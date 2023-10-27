@@ -68,29 +68,63 @@ Register Now
                 Memulai untuk jual beli <br />
                 dengan cara terbaru
               </h2>
-              <form class="mt-3">
+              <form method="POST" action="{{ route('register.store') }}">
+                @csrf
                 <div class="form-group">
                   <label>Full Name</label>
                   <input
                     type="text"
-                    class="form-control is-valid"
+                    class="form-control @error('name') is-invalid @enderror"
                     aria-describedby="nameHelp"
                     v-model="name"
                     autofocus
+                    autocomplete="name"
+                    name="name"
+                    required
                   />
+                  @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
                 <div class="form-group">
                   <label>Email</label>
                   <input
                     type="email"
-                    class="form-control is-invalid"
-                    aria-describedby="emailHelp"
                     v-model="email"
+                    @change="checkForEmailAvailability()"
+                    class="form-control @error('email') is-invalid @enderror"
+                    :class="{ 'is-invalid' : this.email_unavailable}"
+                    aria-describedby="emailHelp"
+                    name="email"
+                    autocomplete="email"
+
+                    required
                   />
+                  @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
                 <div class="form-group">
                   <label>Password</label>
-                  <input type="password" class="form-control" />
+                  <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" required autocomplete="new-password"/>
+                  @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                  <div class="form-group">
+                  <label>Confirm Password</label>
+                  <input type="password" name="password_confirmation" class="form-control @error('password_confirm') is-invalid @enderror" required autocomplete="new-password"/>
+                  @error('password_confirm')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                </div>
                 </div>
                 <div class="form-group">
                   <label>Store</label>
@@ -135,22 +169,38 @@ Register Now
                   <label>Nama Toko</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control @error('store_name') is-invalid @enderror"
                     aria-describedby="storeHelp"
+                    v-model="store_name"
+                    id="store_name"
+                    name="store_name"
+                    required
+                    autofocus
+                    autocomplete="store_name"
                   />
+                  @error('store_name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
                 <div class="form-group" v-if="is_store_open">
                   <label>Kategori</label>
-                  <select name="category" class="form-control">
-                    <option value="" disabled>Select Category</option>
+                  <select name="categories_id" class="form-control">
+                    <option value="" selected>Select Category</option>
+                    @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
                   </select>
                 </div>
-                <button type="submit" class="btn btn-success btn-block mt-4">
+                <button type="submit" class="btn btn-success btn-block mt-4"
+                :disabled="this.email_unavailable"
+                >
                   Sign Up Now
                 </button>
-                <button type="submit" class="btn btn-signup btn-block mt-2">
+                <a href="{{ route('login') }}" class="btn btn-signup btn-block mt-2">
                   Back to Sign In
-                </button>
+                </a>
               </form>
             </div>
           </div>
@@ -163,6 +213,7 @@ Register Now
 @push('addon-script')
 <script src="/vendor/vue/vue.js"></script>
     <script src="https://unpkg.com/vue-toasted"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
       Vue.use(Toasted);
 
@@ -170,21 +221,51 @@ Register Now
         el: "#register",
         mounted() {
           AOS.init();
-          this.$toasted.error(
-            "Maaf, tampaknya email sudah terdaftar pada sistem kami.",
-            {
-              position: "top-center",
-              className: "rounded",
-              duration: 1000,
-            }
-          );
         },
-        data: {
-          name: "Angga Hazza Sett",
-          email: "kamujagoan@bwa.id",
-          password: "",
+        methods: {
+            checkForEmailAvailability: function(){
+                var self = this;
+                axios.get('{{ route('api.register.check') }}', {
+                    params: {
+                        email: this.email;
+                    }
+                })
+                    .then(function (response){
+                        if(response.data == 'Available')
+                              self.$toasted.show(
+                                "Email yang anda input tersedia, Silahkan lanjutkan langkah selanjutnya",
+                                {
+                                  position: "top-center",
+                                  className: "rounded",
+                                  duration: 1000,
+                                }
+                              );
+                              self.email_unavailable = false;
+
+                        if(response.data == 'Unavailable')
+                              self.$toasted.error(
+                                "Maaf, tampaknya email sudah terdaftar pada sistem kami.",
+                                {
+                                  position: "top-center",
+                                  className: "rounded",
+                                  duration: 1000,
+                                }
+                              );
+                              self.email_unavailable = true;
+
+                            //   Handle Success
+                            console.log(response);
+                    })
+            }
+        },
+        data() {
+        return {
+          name: "Input Your Name",
+          email: "your@mail.store",
+          email_unavailable: false
           is_store_open: true,
           store_name: "",
+         }
         },
       });
     </script>

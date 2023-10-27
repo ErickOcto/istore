@@ -19,7 +19,7 @@ Route::middleware('guest')->group(function () {
         return view('pages.success-register');
     })->name('register-success');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('register/post', [RegisteredUserController::class, 'store'])->name('register.store');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');

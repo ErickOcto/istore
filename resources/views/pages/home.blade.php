@@ -92,7 +92,7 @@ Store - Memenuhi Semua Kebutuhan Anda
         <div class="container">
           <div class="row">
             <div class="col-12" data-aos="fade-up">
-              <h5>New Products</h5>
+              <h5>Our Products</h5>
             </div>
           </div>
           <div class="row">
