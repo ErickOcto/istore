@@ -82,9 +82,14 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-inline-block mt-2" href="#">
+              <a class="nav-link d-inline-block mt-2" href="{{ route('cart') }}">
                 <img src="/images/icon-cart-filled.svg" alt="" />
-                <div class="cart-badge">3</div>
+                <div class="cart-badge">
+                    @php
+                        $count = DB::table('carts')->where('user_id', Auth::user()->id)->where('deleted_at', NULL)->count();
+                    @endphp
+                    {{ $count }}
+                </div>
               </a>
             </li>
           </ul>

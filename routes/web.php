@@ -30,6 +30,7 @@ Route::get('/categories-detail/{slug}', [CategoryController::class, 'categoriesD
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
 Route::get('/details/{slug}', [DetailController::class, 'index'])->name('detail');
 Route::post('/details/{id}', [DetailController::class, 'add'])->name('detail-add');
+Route::delete('/cart-delete/{id}', [CartController::class, 'delete'])->name('cart-delete');
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/success', [CartController::class, 'success'])->name('success');
 
