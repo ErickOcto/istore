@@ -174,7 +174,6 @@ Register Now
                     v-model="store_name"
                     id="store_name"
                     name="store_name"
-                    required
                     autofocus
                     autocomplete="store_name"
                   />

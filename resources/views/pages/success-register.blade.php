@@ -18,11 +18,11 @@ Success Register
                 bersama kami. Let’s grow up now.
               </p>
               <div>
-                <a class="btn btn-success w-50 mt-4" href="/dashboard.html">
-                  My Dashboard
-                </a>
-                <a class="btn btn-signup w-50 mt-2" href="/index.html">
+                <a class="btn btn-success w-50 mt-4" href="{{ route('home') }}">
                   Go To Shopping
+                </a>
+                <a class="btn btn-signup w-50 mt-2" href="{{ route('dashboard') }}">
+                  My Dashboard
                 </a>
               </div>
             </div>
