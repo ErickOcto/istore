@@ -198,16 +198,16 @@
           </div>
           <div class="row" data-aos="fade-up" data-aos-delay="200">
             <div class="col-4 col-md-2">
-              <div class="product-title">$10</div>
+              <div class="product-title">Rp. 0</div>
               <div class="product-subtitle">Country Tax</div>
             </div>
             <div class="col-4 col-md-3">
-              <div class="product-title">$280</div>
+              <div class="product-title">Rp. 0</div>
               <div class="product-subtitle">Product Insurance</div>
             </div>
             <div class="col-4 col-md-2">
-              <div class="product-title">$580</div>
-              <div class="product-subtitle">Ship to Jakarta</div>
+              <div class="product-title">Rp. 0</div>
+              <div class="product-subtitle">Shipping</div>
             </div>
             <div class="col-4 col-md-2">
               <div class="product-title text-success">Rp. {{ number_format($totalPrice, 0, ',', '.') }}</div>
