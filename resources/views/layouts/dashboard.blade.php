@@ -27,28 +27,28 @@
           </div>
           <div class="list-group list-group-flush">
             <a
-              href="/dashboard.html"
-              class="list-group-item list-group-item-action active"
+              href="{{ route('dashboard') }}"
+              class="list-group-item list-group-item-action {{ request()->is('dashboard') ? 'active' : '' }}"
               >Dashboard</a
             >
             <a
-              href="/dashboard-products.html"
-              class="list-group-item list-group-item-action"
+              href="{{ route('dashboard-product') }}"
+              class="list-group-item list-group-item-action {{ request()->is('dashboard/product') ? 'active' : '' }}"
               >My Products</a
             >
             <a
-              href="/dashboard-transactions.html"
-              class="list-group-item list-group-item-action"
+              href="{{ route('dashboard-transaction') }}"
+              class="list-group-item list-group-item-action {{ request()->is('dashboard/transaction') ? 'active' : '' }}"
               >Transactions</a
             >
             <a
-              href="/dashboard-settings.html"
-              class="list-group-item list-group-item-action"
+              href="{{ route('dashboard-setting-store') }}"
+              class="list-group-item list-group-item-action {{ request()->is('dashboard/setting-store') ? 'active' : '' }}"
               >Store Settings</a
             >
             <a
-              href="/dashboard-account.html"
-              class="list-group-item list-group-item-action"
+              href="{{ route('dashboard-setting-account') }}"
+              class="list-group-item list-group-item-action {{ request()->is('dashboard/setting-account') ? 'active' : '' }}"
               >My Account</a
             >
           </div>
@@ -97,37 +97,45 @@
                       alt=""
                       class="rounded-circle mr-2 profile-picture"
                     />
-                    Hi, Angga
+                    Hi, {{ Auth::user()->name }}
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/index.html"
+                    <a class="dropdown-item" href="{{ route('home') }}"
                       >Back to Store</a
                     >
-                    <a class="dropdown-item" href="/dashboard-account.html"
+                    <a class="dropdown-item" href="{{ route('dashboard-setting-account') }}"
                       >Settings</a
                     >
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/">Logout</a>
+                    <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                Logout
+                            </x-dropdown-link>
+                        </form>
                   </div>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                   <a class="nav-link d-inline-block mt-2" href="#">
                     <img src="/images/icon-cart-empty.svg" alt="" />
                   </a>
-                </li>
+                </li> --}}
               </ul>
               <!-- Mobile Menu -->
               <ul class="navbar-nav d-block d-lg-none mt-3">
                 <li class="nav-item">
                   <a class="nav-link" href="#">
-                    Hi, Angga
+                    Hi, {{ Auth::user()->name }}
                   </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                   <a class="nav-link d-inline-block" href="#">
                     Cart
                   </a>
-                </li>
+                </li> --}}
               </ul>
             </div>
           </nav>

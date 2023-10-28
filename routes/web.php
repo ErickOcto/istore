@@ -58,7 +58,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/dashboard/product/add', [DashboardProductController::class, 'create'])->name('dashboard-product-add');
 
     // Dashboard-transaction
-    Route::get('/dashboard/transaction', [DashboardTransactionController::class, 'index'])->name('transaction');
+    Route::get('/dashboard/transaction', [DashboardTransactionController::class, 'index'])->name('dashboard-transaction');
     Route::get('/dashboard/transaction-detail/{id}', [DashboardTransactionController::class, 'detail'])->name('transaction-detail');
     Route::get('/dashboard/setting-store', [DashboardSettingController::class, 'store'])->name('dashboard-setting-store');
     Route::get('/dashboard/setting-account', [DashboardSettingController::class, 'account'])->name('dashboard-setting-account');
@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 //Admin Dashboard
-Route::prefix('admin')->namespace('Admin')->middleware(['auth'])->group( function(){
+Route::prefix('admin')->middleware(['auth'])->group( function(){
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin-dashboard');
     Route::resource('category', AdminCategoryController::class);
     Route::resource('user', AdminUserController::class);
