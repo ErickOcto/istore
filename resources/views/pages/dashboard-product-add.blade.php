@@ -19,7 +19,9 @@ Add Product
               <div class="dashboard-content">
                 <div class="row">
                   <div class="col-12">
-                    <form action="">
+                    <form action="{{ route('dashboard-product-store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                       <div class="card">
                         <div class="card-body">
                           <div class="row">
@@ -31,8 +33,7 @@ Add Product
                                   class="form-control"
                                   id="name"
                                   aria-describedby="name"
-                                  name="storeName"
-                                  value="Papel La Casa"
+                                  name="name"
                                 />
                               </div>
                             </div>
@@ -45,21 +46,29 @@ Add Product
                                   id="price"
                                   aria-describedby="price"
                                   name="price"
-                                  value="200"
                                 />
                               </div>
                             </div>
                             <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="">Product Category</label>
+                                                <select name="category_id" class="form-control">
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                            <div class="col-md-12">
                               <div class="form-group">
                                 <label for="description">Description</label>
                                 <textarea
-                                  name="content"
-                                  id=""
+                                  name="description"
+                                  id="content"
                                   cols="30"
                                   rows="4"
                                   class="form-control"
                                 >
-The Nike Air Max 720 SE goes bigger than ever before with Nike's tallest Air unit yet for unimaginable, all-day comfort. There's super breathable fabrics on the upper, while colours add a modern edge. Bring the past into the future with the Nike Air Max 2090, a bold look inspired by the DNA of the iconic Air Max 90. Brand-new Nike Air cushioning
                                 </textarea>
                               </div>
                             </div>
@@ -72,7 +81,7 @@ The Nike Air Max 720 SE goes bigger than ever before with Nike's tallest Air uni
                                   class="form-control pt-1"
                                   id="thumbnails"
                                   aria-describedby="thumbnails"
-                                  name="thumbnails"
+                                  name="photo"
                                 />
                                 <small class="text-muted">
                                   Kamu dapat memilih lebih dari satu file
@@ -82,7 +91,7 @@ The Nike Air Max 720 SE goes bigger than ever before with Nike's tallest Air uni
                           </div>
                         </div>
                       </div>
-                      <div class="row mt-2">
+                      <div class="row mb-5">
                         <div class="col">
                           <button
                             type="submit"
